@@ -95,4 +95,4 @@ Display the full summary in chat as well.
 
 ---
 
-*This skill was designed for sustainability consultants, educators, and professionals who want a weekly digest at the intersection of AI and sustainability. Feel free to adapt the themes, sources, or schedule to suit your needs.*
+*This skill was designed for sustainability professionals or those who are sustainably curious who want a weekly digest at the intersection of AI and sustainability. Feel free to adapt the themes, sources, or schedule to suit your needs.*
