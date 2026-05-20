@@ -4,8 +4,6 @@ An open-source library of **SKILL.md files** for sustainability practitioners wo
 
 Skills are reusable instruction files that teach Claude a specific workflow once, so you stop re-writing context in every session. This library focuses on skills purpose-built for sustainability work: emissions accounting, disclosure reporting, supply chain analysis, stakeholder communication, and more.
 
-> **Browse the full library with descriptions, filters, and framework tags:** [Notion Skills Directory →](https://certain-lupin-f84.notion.site/8fb5697710704108870ad202b65d0453?v=2b6fe10d2af6451bb1420dc55203fb34)
-
 ---
 
 ## What is a SKILL.md?
@@ -107,8 +105,6 @@ claude_interface: [Claude.ai | Claude Code | API]
 ## About This Library
 
 This library was initiated by [PPWA](https://ppwa.io), a sustainable innovation studio with a goal to support sustainability professionals to use AI effectively without requiring a technical background.
-
-Skills are listed in the [Notion Skills Directory](https://certain-lupin-f84.notion.site/8fb5697710704108870ad202b65d0453?v=2b6fe10d2af6451bb1420dc55203fb34) with richer filtering, framework tags, and audience-level labels.
 
 If you have a sustainability workflow you'd like to see as a skill, [open an issue](../../issues/new) describing the use case.
 
