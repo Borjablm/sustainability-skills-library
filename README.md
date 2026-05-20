@@ -100,9 +100,6 @@ claude_interface: [Claude.ai | Claude Code | API]
 | Skill | Category | Framework | Level |
 |---|---|---|---|
 | AI × Sustainability Weekly Scan | Research & Intelligence | General | Beginner |
-| RegenAg Research Synthesis | Procurement & Supply Chain | General | Intermediate |
-| RegenAg Return on Investment (ROI) Model | Strategy & Advisory | General | Intermediate |
-| RegenAg Supplier Assessment | Procurement & Supply Chain | General | Intermediate |
 | *(more skills coming, submit a pull request!)* | | | |
 
 ---
