@@ -94,7 +94,7 @@ Calculate and report:
 
 ## Step 3: Visuals
 
-Before final assembly, ensure the article has the visuals it needs. If you have a programmatic image-generation skill installed (such as the companion `article-images` skill in this library), call it here. Otherwise produce visuals separately or note image needs for downstream handling.
+Before final assembly, ensure the article has the visuals it needs. If you have a programmatic image-generation skill installed (such as the companion `low-compute-article-visuals` skill in this library), call it here. Otherwise produce visuals separately or note image needs for downstream handling.
 
 Decision tree:
 

@@ -1,6 +1,6 @@
 # Research Writing Assistant
 
-End-to-end research and writing assistant for sustainability publications, ESG reports, and consulting articles. From a keyword or topic to a publish-ready article with sourced research, an adversarial writer/editor draft loop, and SEO meta.
+Research-led writing pipeline for sustainability publications, ESG reports, and consulting articles. Takes a topic or keyword and produces a publish-ready article with sourced research, an adversarial writer/editor draft loop, and optional SEO meta for web publication.
 
 **Created by:** Borja Blanco Méndez (borja@azvai.com)
 
@@ -13,12 +13,28 @@ For sustainability communicators, ESG consultants, and research-led publishers w
 The skill is designed for cases where a single prompt is not enough:
 
 - A real dataset or source needs to be researched and cited
-- Competitor content needs to be analysed for information gaps
+- Reference content (academic, regulatory, competitor) needs to be analysed for gaps
 - Brand voice has to stay consistent across many pieces
 - An outline needs human approval before drafting
 - The final draft needs an adversarial editor pass before it ships
 
-Pairs naturally with the companion `article-images` skill (also in this library) for branded charts, stat cards, and stock imagery.
+Pairs naturally with the companion `low-compute-article-visuals` skill (also in this library) for branded charts, stat cards, and stock imagery.
+
+---
+
+## Best fit
+
+- Long-form analytical articles built on a real dataset or source
+- Comparison and review pieces in sustainability, ESG, and circular-economy contexts
+- Explainer pieces where rigour and tone both matter
+- Public-facing research write-ups, white papers, and thought-leadership posts
+- Series and clusters where brand voice consistency matters
+
+## Less suited for
+
+- Regulatory disclosure documents (CSRD/ESRS, TCFD, GRI, ISSB) — use sector templates and frameworks; this skill is generalist
+- Short-form social posts, ad copy, or quick paragraphs — the pipeline is overkill
+- Internal-only memos where source rigour matters more than narrative arc
 
 ---
 
@@ -27,11 +43,11 @@ Pairs naturally with the companion `article-images` skill (also in this library)
 5-stage pipeline with two human-approval checkpoints:
 
 ```
-Stage 1: Brief & Competitor Analysis  →  brief.json + competitors/ + gap-analysis.json
-Stage 2: Deep Research (Sonnet sub-agent)  →  research.json
-Stage 3: Outline Planning (Opus sub-agent) →  outline.json     ⛔ USER APPROVAL
-Stage 4: Adversarial Draft (Opus writer → Opus editor) →  draft.md
-Stage 5: Polish & Deliver  →  article.md + meta.json    ⛔ USER APPROVAL
+Stage 1: Brief & Reference Content Analysis  →  brief.json + competitors/ + gap-analysis.json
+Stage 2: Deep Research (Sonnet sub-agent)    →  research.json
+Stage 3: Outline Planning (Opus sub-agent)   →  outline.json     ⛔ USER APPROVAL
+Stage 4: Adversarial Draft (Opus writer → Opus editor)  →  draft.md
+Stage 5: Polish & Deliver                    →  article.md (+ meta.json, .html if web-publishing)  ⛔ USER APPROVAL
 ```
 
 Each stage writes structured JSON outputs that feed the next, so the pipeline is auditable and re-runnable when sources update.
@@ -55,28 +71,30 @@ On first use, the skill runs a 4-round setup interview to configure brand voice,
 ## Example
 
 **Input:**
-> Write an explainer on "scope 3 category 1 spend-based emissions accounting" for a sustainability consulting audience. Target 2,500 words. Competitor URLs: [...]
+> Write an explainer on "scope 3 category 1 spend-based emissions accounting" for a sustainability consulting audience. Target 2,500 words. Reference URLs: [academic paper], [GHG Protocol guidance], [practitioner blog].
 
 **What happens:**
-1. Stage 1 captures the brief, scrapes the competitor URLs, runs gap analysis
+1. Stage 1 captures the brief, scrapes the reference URLs, runs gap analysis to identify what's missing or thin in existing content
 2. Stage 2 deep-researches across web sources (and optionally YouTube + X if Apify MCP is configured), saves a sourced `research.json`
 3. Stage 3 produces an outline with section budgets, asks you to approve
 4. Stage 4 writes a draft, then an editor sub-agent revises it (cuts hedging, enforces voice rules, removes em-dashes, verifies sources)
-5. Stage 5 produces the final `article.md`, `article.html`, and `meta.json` (5 title options, 3-5 meta descriptions, slug), asks you to approve
+5. Stage 5 produces the final `article.md`, optionally `article.html` and `meta.json` for web publishing, asks you to approve
 
 **Output folder:**
 ```
 scope-3-category-1-spend-based-2026-05-21/
 ├── brief.json
-├── competitors/
+├── competitors/         (reference content analysis)
 ├── gap-analysis.json
 ├── research.json
 ├── outline.json
 ├── draft.md
-├── article.md         ← publish-ready
-├── article.html       ← WordPress-ready HTML
-└── meta.json          ← SEO meta
+├── article.md           ← always produced (publish-ready Markdown)
+├── article.html         ← optional (for web publication)
+└── meta.json            ← optional (SEO meta for web publication)
 ```
+
+For reports, board briefs, or internal documents, skip the HTML and meta outputs — the Markdown stands on its own.
 
 ---
 
@@ -106,7 +124,7 @@ On first run, the skill walks you through the 4-round setup interview to configu
 
 ---
 
-## Methodology source
+## Methodology sources
 
 The 5-stage pipeline structure (brief → research → outline → adversarial draft → polish) is adapted from the SEO content commands taught in [Authority Hacker's AI Accelerator](https://www.authorityhacker.com/ai-accelerator/). The non-commodity content rules align with Google's 2026 core update guidance on Information Gain.
 

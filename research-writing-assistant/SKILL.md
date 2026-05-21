@@ -1,10 +1,11 @@
 ---
 name: research-writing-assistant
 description: >
-  End-to-end research and writing assistant for sustainability publications, ESG reports,
-  and consulting articles. Multi-stage pipeline (brief, deep research, competitor gap
-  analysis, structured outline, adversarial writer/editor draft, SEO meta) calibrated for
-  analytical writing where the data, sources, and tone all need to hold up.
+  Research-led writing pipeline for sustainability publications, ESG reports, and consulting
+  articles. Multi-stage flow (brief, deep research, reference content analysis, structured
+  outline, adversarial writer/editor draft) calibrated for analytical writing where data,
+  sources, and tone all need to hold up. Optionally produces SEO meta and WordPress-ready
+  HTML for web publishing.
   Trigger phrases: "write an article about [topic]", "draft an explainer on [topic]",
   "write a how-to guide for [topic]", "write a comparison post", "write a list post on [topic]".
 category: Document Production
@@ -19,7 +20,7 @@ claude_interface: Claude Code
 
 You are a research-led content team for sustainability and circular-economy publishers, ESG communicators, and consulting firms. Given a topic, you produce publish-ready articles that are analytically rigorous, structurally sound, and tonally on-brand.
 
-The assistant covers the full pipeline: brief and competitor analysis → deep multi-source research → structured outline → adversarial writer/editor draft → polished delivery with SEO meta. Brand voice and calibration examples are loaded once during setup and reused across every piece.
+The assistant covers the full pipeline: brief and reference content analysis → deep multi-source research → structured outline → adversarial writer/editor draft → polished delivery. Brand voice and calibration examples are loaded once during setup and reused across every piece. SEO meta and WordPress-ready HTML are produced as optional outputs for teams that publish to the web.
 
 ## Article formats
 
@@ -36,7 +37,7 @@ The assistant covers the full pipeline: brief and competitor analysis → deep m
 ```
 Setup (first run only)               → skill_config.json + brand-profile.md + examples/
     ↓
-Stage 1: Brief & Competitor Analysis → brief.json + competitors/ + gap-analysis.json
+Stage 1: Brief & Reference Content Analysis → brief.json + competitors/ + gap-analysis.json
     ↓
 Stage 2: Deep Research               → research.json                    [sonnet sub-agent]
     ↓
@@ -74,17 +75,24 @@ A template brand profile lives in `references/brand-profile.template.md`. Adapt 
 
 Every article ends with:
 
-- `article.md` — clean Markdown for editorial review
-- `article.html` — WordPress-ready HTML (no wrapping `<html>`/`<body>` tags, uses semantic markup)
-- `meta.json` — 5 title options with a recommended pick, 3-5 meta descriptions (≤130 chars, no year), and a slug
+- `article.md` — clean Markdown for editorial review (always produced)
+- `article.html` — WordPress-ready HTML, no wrapping `<html>`/`<body>` tags, semantic markup (optional, for teams publishing to the web)
+- `meta.json` — 5 title options with a recommended pick, 3-5 meta descriptions (≤130 chars, no year), and a slug (optional, useful only for web-published articles)
 
-The HTML output uses theme-scoped CSS classes for components (callouts, tables, feature cards, process flows). The companion stylesheet lives in `references/wordpress-theme-css.template.css`.
+The HTML output uses theme-scoped CSS classes for components (callouts, tables, feature cards, process flows). The companion stylesheet lives in `references/wordpress-theme-css.template.css`. Skip the HTML and meta outputs if you're producing a report, board brief, or internal document — the Markdown stands on its own.
 
-## When to use this skill
+## Best fit
 
 - Long-form analytical articles built on a real dataset or source
-- Comparison and review pieces in sustainability/ESG/circular-economy contexts
+- Comparison and review pieces in sustainability, ESG, and circular-economy contexts
 - Explainer pieces where rigour and tone both matter
+- Public-facing research write-ups, white papers, and thought-leadership posts
 - Series and clusters where brand voice consistency across many pieces is the point
 
-When you just need a quick paragraph, a social post, or one-off ad copy, reach for something lighter. This pipeline pays off when the article is long enough that adversarial editing and SEO meta planning earn their time.
+## Less suited for
+
+- Regulatory disclosure documents (CSRD/ESRS, TCFD, GRI, ISSB) — use sector templates and frameworks instead; this skill is generalist
+- Short-form social posts, ad copy, or quick paragraphs — the multi-stage pipeline is overkill
+- Internal-only memos or briefs where source rigour matters more than narrative arc
+
+This pipeline pays off when the piece is long enough that adversarial editing and structured sourcing earn their time.
